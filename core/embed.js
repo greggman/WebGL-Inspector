@@ -137,10 +137,8 @@
             }
 
             if (requestingWebGL) {
-                // TODO: pull options from somewhere?
-                result = gli.host.inspectContext(this, result);
-                var hostUI = new gli.host.HostUI(result);
-                result.hostUI = hostUI; // just so we can access it later for debugging
+                // TODO: pull options from extension
+                result = gli.wrapContextAndStartUI(this, result);
             }
 
             return result;

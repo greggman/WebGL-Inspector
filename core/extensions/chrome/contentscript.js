@@ -194,16 +194,8 @@ function main() {
 
             // If we are injected, inspect this context
             if (window.gli) {
-                if (gli.host.inspectContext) {
-                    // TODO: pull options from extension
-                    result = gli.host.inspectContext(this, result);
-                    // NOTE: execute in a timeout so that if the dom is not yet
-                    // loaded this won't error out.
-                    window.setTimeout(function() {
-                        var hostUI = new gli.host.HostUI(result);
-                        result.hostUI = hostUI; // just so we can access it later for debugging
-                    }, 0);
-                }
+                // TODO: pull options from extension
+                window.gli.wrapContextAndStartUI(this, result);
             }
         }
 

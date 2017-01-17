@@ -19,8 +19,8 @@
 
     var requestingWebGL = contextNames.indexOf(arguments[0]) !== -1;
     if (requestingWebGL) {
-      result = gli.host.inspectContext(this, result);
-      result.hostUI = new gli.host.HostUI(result);
+      // TODO: pull options from extension
+      result = gli.wrapContextAndStartUI(this, result);
     }
 
     return result;
