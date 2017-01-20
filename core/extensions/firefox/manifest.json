@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "minimum_chrome_version": "20",
+  "name" : "WebGL Inspector - Beta",
+  "version" : "2.0.0",
+  "homepage_url": "http://github.com/greggman/WebGL-Inspector/",
+  "description" : "Debug, diagnose, and explore WebGL scenes.",
+  "background" : {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ],
+  "page_action" :
+  {
+    "default_icon" : "webgl-19.png",
+    "default_title" : "Debug with WebGL Inspector"
+  },
+  "content_scripts" : [
+    {
+      "matches" : [
+        "file://*/*",
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js" : ["contentscript.js"],
+      "run_at" : "document_start",
+      "all_frames" : false
+    }
+  ],
+  "web_accessible_resources": [
+    "gli.all.css",
+    "gli.all.js",
+    "assets/*"
+  ],
+  "icons" : {
+    "48" : "webgl-48.png",
+    "128" : "webgl-128.png"
+  }
+}
