@@ -7,6 +7,8 @@ core/lib/
 gli.all.js
 gli.all.css
 node_modules
+build
+publish.sh
 core/extensions/safari/webglinspector.safariextension/contentscript.js
 core/extensions/safari/webglinspector.safariextension/assets/
 core/extensions/chrome/assets/
