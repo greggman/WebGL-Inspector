@@ -186,7 +186,7 @@ function main() {
             return null;
         }
 
-        var contextNames = ["webgl", "webgl2"];
+        var contextNames = ["webgl", "webgl2", "experimental-webgl"];
         var requestingWebGL = contextNames.indexOf(arguments[0]) != -1;
         if (requestingWebGL) {
             // Page is requesting a WebGL context!
@@ -195,7 +195,7 @@ function main() {
             // If we are injected, inspect this context
             if (window.gli) {
                 // TODO: pull options from extension
-                window.gli.wrapContextAndStartUI(this, result);
+                result = window.gli.wrapContextAndStartUI(this, result);
             }
         }
 
