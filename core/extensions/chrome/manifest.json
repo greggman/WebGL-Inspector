@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "minimum_chrome_version": "20",
-  "name" : "WebGL Inspector",
-  "version" : "1.13",
-  "homepage_url": "http://benvanik.github.com/WebGL-Inspector/",
+  "name" : "WebGL Inspector - Beta",
+  "version" : "2.0.0",
+  "homepage_url": "http://github.com/greggman/WebGL-Inspector/",
   "description" : "Debug, diagnose, and explore WebGL scenes.",
   "background" : {
     "scripts": ["background.js"]
