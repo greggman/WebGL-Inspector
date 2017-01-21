@@ -34,7 +34,15 @@ module.exports = function(grunt) {
           archive: 'build/chrome-webgl-inspector-beta.zip',
         },
         files: [
-          { expand: true, cwd: 'core/extensions/chrome/', src: [ '**' ], dest: 'chrome/', filter: 'isFile' },
+          { expand: true, cwd: 'core/extensions/chrome/', src: [ '**' ], dest: '/', filter: 'isFile' },
+        ],
+      },
+      firefox: {
+        options: {
+          archive: 'build/firefox-webgl-inspector-beta.zip',
+        },
+        files: [
+          { expand: true, cwd: 'core/extensions/firefox/', src: [ '**' ], dest: '/', filter: 'isFile' },
         ],
       },
     },
