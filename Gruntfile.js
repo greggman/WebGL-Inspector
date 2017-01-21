@@ -12,9 +12,11 @@ module.exports = function(grunt) {
   const notReleaseFile = (function() {
       const releaseFiles = fs.readdirSync('core/extensions/web-extension-release');
 
-      function notReleaseFile(filename) {
+      return function notReleaseFile(filename) {
         const name = path.basename(filename);
-        return releaseFiles.indexOf(name) < 0;
+        const stat = fs.statSync(filename);
+        const isNotReleaseFile = releaseFiles.indexOf(name) < 0;
+        return isNotReleaseFile && !stat.isDirectory();
       }
   }());
 
@@ -38,7 +40,12 @@ module.exports = function(grunt) {
       },
     },
     clean: {
-      build: [ 'build' ],
+      build: [
+        'build',
+        'core/lib/assets',
+        'core/extensions/web-extension/assets',
+        'core/extensions/safarai/webglinpector.safariextension/assets',
+      ],
     },
     concat: {
       css: {
@@ -60,7 +67,7 @@ module.exports = function(grunt) {
       extensions: {
         files: [
           {expand: true, cwd: 'core/lib', src: ['**'], dest: 'core/extensions/web-extension/'},
-          {expand: true, cwd: 'core/lib', src: ['**'], dest: 'core/extensions/webglinspector.safariextension/'},
+          {expand: true, cwd: 'core/lib', src: ['**'], dest: 'core/extensions/safari/webglinspector.safariextension/'},
         ],
       },
     },
@@ -131,9 +138,52 @@ module.exports = function(grunt) {
     },
   });
 
+  grunt.registerTask('syncversion', function() {
+
+    function handleJSON(version, origText) {
+      const json = JSON.parse(origText);
+      json.version = version;
+      return JSON.stringify(json, null, 2);
+    }
+
+    const plistRE1 = /(<key>CFBundleShortVersionString<\/key>[ \n\t]+<string>)([^<]+)(<\/string>)/
+    const plistRE2 = /(<key>CFBundleVersion<\/key>[ \n\t]+<string>)([^<]+)(<\/string>)/
+    function handlePLIST(version, origText) {
+      return origText.replace(plistRE1, `$1${version}$3`).replace(plistRE2, `$1${version}$3`);
+    }
+
+    const handlers = {
+      ".json": handleJSON,
+      ".plist": handlePLIST,
+    };
+
+    const pkg = JSON.parse(fs.readFileSync('package.json', {encoding: 'utf8'}));
+    const version = pkg.version;
+
+    [
+      'core/manifest.json',
+      'core/extensions/web-extension/manifest.json',
+      'core/extensions/web-extension-release/manifest.json',
+      'core/extensions/firefox-legacy/package.json',
+      'core/extensions/safari/webglinspector.safariextension/Info.plist',
+    ].forEach(name => {
+      const origText = fs.readFileSync(name, {encoding: 'utf8'});
+      const ext = path.extname(name);
+      const handler = handlers[ext];
+      if (!handler) {
+        throw "unsupported format";
+      }
+      const newText = handler(version, origText);
+      if (newText !== origText) {
+        fs.writeFileSync(name, newText, {encoding: 'utf8'});
+      }
+    });
+  });
+
   grunt.registerTask('build', [
       'clean',
       'concat:css',
+      'syncversion',
       'copy:assets',
       'webpack:extension',
       'copy:extensions',
