@@ -42,9 +42,7 @@ function notifyEnabled(present) {
 };
 
 function listenForMessage(callback) {
-console.log("listen4Msg");
     if (global["browser"]) {
-console.log("listen4Msg - add Listener");
         browser.runtime.onMessage.addListener(callback);
     } else if (window["chrome"]) {
         chrome.extension.onRequest.addListener(callback);
@@ -186,7 +184,6 @@ function main() {
         }
     }, false);
 
-console.log("wrap context");
     // Rewrite getContext to snoop for webgl
     var originalGetContext = HTMLCanvasElement.prototype.getContext;
     if (!HTMLCanvasElement.prototype.getContextRaw) {
@@ -227,7 +224,6 @@ if (document.xmlVersion) {
 }
 
 if (likelyHTML) {
-console.log("inject script");
     var script = document.createElement('script');
     script.appendChild(document.createTextNode('(' + main + ')();'));
     var elem = document.body || document.head || document.documentElement;
