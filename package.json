@@ -4,7 +4,7 @@
   "description": "An inspector for WebGL",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config core/webpack.config.js  --display-modules",
+    "build": "grunt build",
     "compress": "grunt compress",
     "publish": "grunt publish"
   },
@@ -39,6 +39,9 @@
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-compress": "^1.4.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-webpack-without-server": "^1.0.8",
     "grunt-webstore-upload": "^0.9.4",
     "imports-loader": "^0.7.0",
     "load-grunt-tasks": "^3.5.2",

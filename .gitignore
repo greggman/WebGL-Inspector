@@ -12,6 +12,6 @@ publish.sh
 core/extensions/safari/webglinspector.safariextension/contentscript.js
 core/extensions/safari/webglinspector.safariextension/assets/
 core/extensions/chrome/assets/
-core/extensions/firefox/assets/
+core/extensions/web-extension/assets/
 core/extensions/firefox-legacy/chrome/content/assets/
 

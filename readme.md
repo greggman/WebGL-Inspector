@@ -77,25 +77,24 @@ itself.
 
 #### Chromium
 * Navigate to chrome://extensions
-* Click 'load unpacked extension...' and select the extensions/chrome/ directory
+* Click 'load unpacked extension...' and select the extensions/web-extension/ directory
 * If you will be trying to inspect file:// pages, make sure to check 'Allow access to file URLs'
 * Open a page with WebGL content and click the 'GL' icon in the top right of the address bar (click again to disable)
 
-**DEBUGGING**: If you want to debug the inspector code, instead load the extension from core/ - this will use the non-cat'ed files
+**DEBUGGING**: If you want to debug the inspector code I'd recommend using the embedded debug version. See above. If you
+need to debug the extension itself load the extension from core/ - this will use the non-cat'ed files
 and makes things much easier when navigating source. You'll also be able to just reload pages when you make changes to the extension
 (although sometimes the CSS requires a full browser restart to update).
 
 #### Firefox
-[Download WebGL Inspector from Mozilla AMO](https://addons.mozilla.org/en-US/firefox/addon/webgl-inspector/)
-or build manually:
-* `cd core && ./buildextensions.sh`
-* Open `core/extensions/firefox/webglinspector.xpi` in Firefox.
+* Navigate to about://debugging
+* Click 'Load Temporary Add-on' and select the extensions/web-extension/ directory
+* Open a page with WebGL content and click the 'GL' icon in the top right of the address bar (click again to disable)
 
-**DEBUGGING**
-* `cd core/extensions/firefox`
-* `make run`
-or
-* `PROFILE=/path/to/dev/profile make run`
+**DEBUGGING**: If you want to debug the inspector code I'd recommend using the embedded debug version. See above. If you
+need to debug the extension itself load the extension from core/ - this will use the non-cat'ed files
+and makes things much easier when navigating source. You'll also be able to just reload pages when you make changes to the extension
+(although sometimes the CSS requires a full browser restart to update).
 
 #### WebKit
 * Open the Extension Builder
